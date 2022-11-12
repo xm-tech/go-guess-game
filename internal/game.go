@@ -3,7 +3,6 @@ package internal
 import (
 	"fmt"
 	"os"
-	"runtime"
 	"time"
 )
 
@@ -96,9 +95,7 @@ func (self *Game) Run() {
 
 	}()
 
-	for {
-		runtime.Gosched()
-	}
+	select {}
 }
 
 // 胜利组合是否包含该输入, loop 1轮输入
