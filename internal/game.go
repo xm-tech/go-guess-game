@@ -12,7 +12,7 @@ type Game struct {
 	// 获胜的出拳组合
 	Wins [][]string
 	// 两名玩家
-	players [2]*Player
+	players []*Player
 	// 当前已完游戏轮数
 	loops int
 	// 获胜需要轮数
@@ -22,17 +22,31 @@ type Game struct {
 }
 
 func NewGame() *Game {
-	playerA := &Player{Name: "maxm", WinedCnt: 0}
-	playerB := &Player{Name: "AI", WinedCnt: 0, AI: true}
 	// 3 轮 2 胜 玩法
-	return &Game{
+	game := &Game{
 		Alternatives: []string{"剪刀", "石头", "布"},
 		Wins:         [][]string{{"剪刀", "布"}, {"布", "石头"}, {"石头", "剪刀"}},
-		players:      [2]*Player{playerA, playerB},
 		loops:        0,
 		WinCnt:       2,
 	}
+	// test data
+	playerA := &Player{Name: "maxm", WinedCnt: 0}
+	playerB := &Player{Name: "AI", WinedCnt: 0, AI: true}
+
+	game.PlayerJoin(playerA)
+	game.PlayerJoin(playerB)
+	return game
 }
+
+// 玩家会有1加入游戏的过程
+func (self *Game) PlayerJoin(p *Player) {
+	if len(self.players) >= 2 {
+		fmt.Println(p.Name, "join game fail, player enough")
+		return
+	}
+	self.players = append(self.players, p)
+}
+
 func (self *Game) Run() {
 	fmt.Println("请出拳")
 
