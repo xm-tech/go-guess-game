@@ -1,3 +1,4 @@
+[] Dockerlized
 [] Fix Makefile
 [] Use Goroutine
 [] Fix Docs
